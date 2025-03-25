@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UnreleasedSweden</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #121212;
+            color: white;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, p {
+            margin: 0;
+            padding: 0;
+        }
+
+        a {
+            text-decoration: none;
+            color: white;
+        }
+
+        header {
+            background-color: #1a1a1a;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        header .logo h1 {
+            font-size: 2rem;
+            color: #1DB954;
+            font-weight: 600;
+        }
+
+        header nav ul {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+
+        header nav ul li {
+            margin-left: 25px;
+        }
+
+        header nav ul li a {
+            font-size: 1.1rem;
+            color: #B3B3B3;
+            font-weight: 400;
+            padding: 10px 15px;
+            transition: color 0.3s ease, background 0.3s ease;
+            border-radius: 5px;
+        }
+
+        header nav ul li a:hover {
+            color: #1DB954;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .slogan {
+            text-align: center;
+            padding: 80px 20px;
+            background: linear-gradient(135deg, #1f1f1f, #121212);
+        }
+
+        .slogan h2 {
+            font-size: 2.8rem;
+            color: #FFFFFF;
+            font-weight: 600;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .featured {
+            padding: 50px 20px;
+            text-align: center;
+            background-color: #121212;
+        }
+
+        .featured h2 {
+            font-size: 2.2rem;
+            margin-bottom: 40px;
+            font-weight: 600;
+            color: #FFFFFF;
+        }
+
+        .artist-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            justify-content: center;
+            gap: 25px;
+            padding: 0 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .artist {
+            background-color: #1a1a1a;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .artist:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        .artist img {
+            width: 100%;
+            border-radius: 8px;
+            object-fit: cover;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .artist h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #FFFFFF;
+            margin-bottom: 8px;
+        }
+
+        .artist p {
+            color: #B3B3B3;
+            font-size: 0.9rem;
+        }
+
+        footer {
+            background-color: #1a1a1a;
+            padding: 25px;
+            text-align: center;
+            margin-top: 60px;
+            border-top: 1px solid #2a2a2a;
+        }
+
+        footer p {
+            color: #B3B3B3;
+            font-size: 1rem;
+        }
+
+        .album-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            padding: 20px;
+            margin-top: 30px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .album {
+            background-color: #1a1a1a;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .album iframe {
+            width: 100%;
+            height: 220px;
+            border: 0;
+            border-radius: 8px;
+        }
+
+        .counter {
+            color: #1DB954;
+            font-size: 1.2rem;
+            margin: 15px 0;
+            font-weight: 600;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #1a1a1a;
+            padding: 30px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        .modal-content h2 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        .modal-content input, .modal-content textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #B3B3B3;
+            border-radius: 5px;
+            background-color: #2a2a2a;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .modal-content button {
+            background-color: #1DB954;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .modal-content button:hover {
+            background-color: #17a246;
+        }
+
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #B3B3B3;
+        }
+
+        /* Media Query for Smaller Screens */
+        @media (max-width: 600px) {
+            .artist-list {
+                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+                gap: 20px;
+            }
+
+            .artist h3 {
+                font-size: 1.2rem;
+            }
+
+            .artist p {
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1>UnreleasedSweden</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#" onclick="scrollToSection('featured')">Home</a></li>
+                <li><a href="#" onclick="openSongRequest()">Song Request</a></li>
+                <li><a href="#">Library</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="slogan">
+        <h2>The best unreleased music from Sweden, right here, right now</h2>
+    </section>
+
+    <main>
+        <section class="featured" id="featured">
+            <h2>Featured Artists</h2>
+            <div class="artist-list">
+                <div class="artist" onclick="openUnreleasedTab('einar')">
+                    <img src="https://i.ibb.co/xtf0Y89r/einar-skutt-mot-10-ganger-stockholm-dodspatrullen-husbys-hyenor.webp" alt="Einár" loading="lazy">
+                    <h3>Einár</h3>
+                    <p>Hip-Hop / Rap</p>
+                </div>
+                <div class="artist" onclick="openUnreleasedTab('owen')">
+                    <img src="https://imgs.search.brave.com/YwlLgg3hsbVBt3EzDYebUX2vL17Gt5hAH1d8jT5VsgQ/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pMS5z/bmRjZG4uY29tL2Fy/dHdvcmtzLXUzNlI4/SjVjbFJrYWcwbDQt/QnNVZzlRLXQxMDgw/eDEwODAuanBn" alt="Owen" loading="lazy">
+                    <h3>Owen</h3>
+                    <p>Hip-Hop / Rap</p>
+                </div>
+                <div class="artist" onclick="openUnreleasedTab('dree-low')">
+                    <img src="https://i.postimg.cc/JhsvF0cN/bccc3da8-a534-4df8-b407-d725f060c56b.jpg" alt="Dree Low" loading="lazy">
+                    <h3>Dree Low</h3>
+                    <p>Hip-Hop / Rap</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Song Request Modal -->
+    <div id="songRequestModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeSongRequest()">×</span>
+            <h2>Song Request</h2>
+            <form id="songRequestForm">
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email" required>
+                <input type="text" placeholder="Artist Name" required>
+                <textarea placeholder="Song Title or Description" rows="4" required></textarea>
+                <button type="submit">Submit Request</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 UnreleasedSweden. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const einarSongs = [
+            {title: "Lugnet Före Stormen", src: "https://audiomack.com/embed/album/cs1-3/lugnet-fore-stormen"},
+            {title: "Sett Nånting", src: "https://audiomack.com/embed/song/magmareaper4/einar-x-mpl-sett-nanting"},
+            {title: "Centrum", src: "https://audiomack.com/embed/song/magmareaper4/einar-centrum"},
+            {title: "GG PP ft. Moewgli & 5ifty", src: "https://audiomack.com/embed/song/cs1-3/einar-gg-pp-ft-moewgli-5ifty-oslappt"},
+            {title: "Annan Gang (Bäst Kvalité)", src: "https://audiomack.com/embed/song/cs1-3/einar-x-lelo-annan-gang-bast-kvalite-hela-oslappt"},
+            {title: "Gangland ft. Aden", src: "https://audiomack.com/embed/song/cs1-3/aden-x-einr-gangland"},
+            {title: "Tragic ft. 23 & 5iftyy", src: "https://audiomack.com/embed/song/cs1-3/einar-ft-23-5iftyy-tragic"},
+            {title: "För Stor För Landet", src: "https://audiomack.com/embed/song/cs1-3/einar-for-stor-for-landet"},
+            {title: "SSM LS", src: "https://audiomack.com/embed/song/cs1-3/ssm-ls"},
+            {title: "Va Säger Du Baby (Studio Kvalitet)", src: "https://audiomack.com/embed/song/cs1-3/einar-va-sager-du-baby-studio-kvalitet"},
+            {title: "Para", src: "https://audiomack.com/embed/song/cs1-3/einar-para-oslappt"},
+            {title: "What What ft. Dree Low", src: "https://audiomack.com/embed/song/cs1-3/dree-low-ft-einar-what-what"},
+            {title: "Steppa In", src: "https://audiomack.com/embed/song/magmareaper4/steppa-in-einr"},
+            {title: "Kaos", src: "https://audiomack.com/embed/song/magmareaper4/einr-kaos"},
+            {title: "Trapstar$ ft. Sulle", src: "https://audiomack.com/embed/song/magmareaper4/trapstar-1"},
+            {title: "Kilos", src: "https://audiomack.com/embed/song/cs1-3/einar-kilos"},
+            {title: "3Style Del 2", src: "https://audiomack.com/embed/song/magmareaper4/einr-3style-del-2"},
+            {title: "Southside ft. Euro", src: "https://audiomack.com/embed/song/cs1-3/einar-x-euro-southside-oslappt"},
+            {title: "Stress ft. Owen & Thrife", src: "https://audiomack.com/embed/song/cs1-3/einar-x-owen-x-thrife-stress-oslappt-bast-kvalite"},
+            {title: "Blåser Kallt ft. Dree Low", src: "https://audiomack.com/embed/song/magmareaper4/einar-x-dree-low-blser-kallt"},
+            {title: "See You Later ft. Icekiid", src: "https://audiomack.com/embed/song/cs1-3/einar-x-icekiid-see-you-later"},
+            {title: "Ha Ha Ha (Fuck Fame) ft. Adaam", src: "https://audiomack.com/embed/song/magmareaper4/einar-x-adaam-ha-ha-ha-fuck-fame-hela-oslappt"},
+            {title: "Mina Grabbar", src: "https://audiomack.com/embed/song/cs1-3/einar-mina-grabbar"},
+            {title: "Designer ft. Thrife", src: "https://audiomack.com/embed/song/cs1-3/einar-x-thrife-desginer"}
+        ];
+
+        const owenSongs = [
+            {title: "Diskret", src: "https://audiomack.com/embed/song/cs1-3/owen-diskret"},
+            {title: "Stress ft. Thrife", src: "https://audiomack.com/embed/song/cs1-3/einar-x-owen-x-thrife-stress-oslappt-bast-kvalite"}
+        ];
+
+        const dreeLowSongs = [
+            {title: "What What ft. Einár", src: "https://audiomack.com/embed/song/cs1-3/dree-low-ft-einar-what-what"},
+            {title: "Blåser Kallt ft. Einár", src: "https://audiomack.com/embed/song/magmareaper4/einar-x-dree-low-blser-kallt"}
+        ];
+
+        function generateAlbumList(songs) {
+            return songs.map(song => `
+                <div class="album">
+                    <h2>${song.title}</h2>
+                    <iframe loading="lazy" width="100%" height="220" src="${song.src}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                </div>
+            `).join('');
+        }
+
+        function openUnreleasedTab(artist) {
+            let songs, artistName;
+            if (artist === 'einar') {
+                songs = einarSongs;
+                artistName = 'Einár';
+            } else if (artist === 'owen') {
+                songs = owenSongs;
+                artistName = 'Owen';
+            } else if (artist === 'dree-low') {
+                songs = dreeLowSongs;
+                artistName = 'Dree Low';
+            }
+
+            const songCount = songs.length;
+
+            const newTab = window.open('', '_blank');
+            newTab.document.title = "UnreleasedSweden";
+            newTab.document.write(`
+                <!DOCTYPE html>
+                <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>UnreleasedSweden - ${artistName}</title>
+                    <style>
+                        body {
+                            font-family: 'Poppins', sans-serif;
+                            background-color: #121212;
+                            color: white;
+                            margin: 0;
+                            padding: 0;
+                            -webkit-font-smoothing: antialiased;
+                        }
+                        h1, h2, p {
+                            text-align: center;
+                            margin: 20px 0;
+                        }
+                        .album-list {
+                            display: grid;
+                            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                            gap: 30px;
+                            padding: 20px;
+                            margin-top: 30px;
+                            max-width: 1200px;
+                            margin-left: auto;
+                            margin-right: auto;
+                        }
+                        .album {
+                            background-color: #1a1a1a;
+                            padding: 15px;
+                            border-radius: 10px;
+                            text-align: center;
+                        }
+                        .album iframe {
+                            width: 100%;
+                            height: 220px;
+                            border: 0;
+                            border-radius: 8px;
+                        }
+                        header {
+                            background-color: #1a1a1a;
+                            padding: 20px;
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                            position: sticky;
+                            top: 0;
+                            z-index: 1000;
+                            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+                        }
+                        header .logo h1 {
+                            font-size: 2rem;
+                            color: #1DB954;
+                        }
+                        header nav ul {
+                            list-style: none;
+                            display: flex;
+                            margin: 0;
+                            padding: 0;
+                        }
+                        header nav ul li {
+                            margin-left: 25px;
+                        }
+                        header nav ul li a {
+                            font-size: 1.1rem;
+                            color: #B3B3B3;
+                            font-weight: 400;
+                            padding: 10px 15px;
+                            transition: color 0.3s ease;
+                        }
+                        header nav ul li a:hover {
+                            color: #1DB954;
+                        }
+                        footer {
+                            background-color: #1a1a1a;
+                            padding: 25px;
+                            text-align: center;
+                            margin-top: 60px;
+                            border-top: 1px solid #2a2a2a;
+                        }
+                        footer p {
+                            color: #B3B3B3;
+                            font-size: 1rem;
+                        }
+                        .counter {
+                            color: #1DB954;
+                            font-size: 1.2rem;
+                            margin: 15px 0;
+                            font-weight: 600;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <header>
+                        <div class="logo">
+                            <h1>UnreleasedSweden</h1>
+                        </div>
+                        <nav>
+                            <ul>
+                                <li><a href="#" onclick="window.close()">Home</a></li>
+                                <li><a href="#" onclick="alert('Please use the main page to request songs.')">Song Request</a></li>
+                                <li><a href="#">Library</a></li>
+                            </ul>
+                        </nav>
+                    </header>
+
+                    <h1>Unreleased Tracks by ${artistName}</h1>
+                    <p class="counter">Total Tracks: ${songCount}</p>
+                    <div class="album-list">
+                        ${generateAlbumList(songs)}
+                    </div>
+
+                    <footer>
+                        <p>© 2025 UnreleasedSweden. All rights reserved.</p>
+                    </footer>
+                </body>
+                </html>
+            `);
+            newTab.document.close();
+        }
+
+        // Song Request Modal Functions
+        function openSongRequest() {
+            document.getElementById('songRequestModal').style.display = 'flex';
+        }
+
+        function closeSongRequest() {
+            document.getElementById('songRequestModal').style.display = 'none';
+        }
+
+        document.getElementById('songRequestForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const name = this.querySelector('input[placeholder="Your Name"]').value;
+            const email = this.querySelector('input[placeholder="Your Email"]').value;
+            const artist = this.querySelector('input[placeholder="Artist Name"]').value;
+            const song = this.querySelector('textarea[placeholder="Song Title or Description"]').value;
+
+            // Discord webhook URL (replace with your actual webhook URL)
+            const webhookUrl = 'YOUR_WEBHOOK_URL_HERE';
+
+            // Create the message payload for Discord
+            const payload = {
+                content: "New Song Request",
+                embeds: [{
+                    title: "Song Request Details",
+                    color: 1942002, // Spotify green in decimal
+                    fields: [
+                        { name: "Name", value: name, inline: true },
+                        { name: "Email", value: email, inline: true },
+                        { name: "Artist", value: artist, inline: false },
+                        { name: "Song/Description", value: song, inline: false },
+                        { name: "Timestamp", value: new Date().toLocaleString(), inline: false }
+                    ]
+                }]
+            };
+
+            // Send the request to Discord webhook
+            fetch(webhookUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(payload)
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert('Thank you for your request! We’ll review it soon.');
+                    closeSongRequest();
+                    this.reset();
+                } else {
+                    alert('There was an error submitting your request. Please try again.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('There was an error submitting your request. Please try again.');
+            });
+        });
+
+        // Smooth Scroll to Section
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
