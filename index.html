@@ -295,22 +295,22 @@
             <h2>Featured Artists</h2>
             <div class="artist-list">
                 <div class="artist" onclick="openUnreleasedTab('einar')">
-                    <img src="https://i.ibb.co/xtf0Y89/einar-skutt-mot-10-ganger-stockholm-dodspatrullen-husbys-hyenor.webp" alt="Einár" loading="lazy" onerror="this.classList.add('error'); this.src='data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"100\" height=\"100\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#B3B3B3\" stroke-width=\"2\"><path d=\"M12 4v16M4 12h16\"/></svg>'">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Ein%C3%A5r_2019.jpg/220px-Ein%C3%A5r_2019.jpg" alt="Einár" loading="lazy" onerror="handleImageError(this, 'https://via.placeholder.com/220x220.png?text=Einár')">
                     <h3>Einár</h3>
                     <p>Hip-Hop / Rap</p>
                 </div>
                 <div class="artist" onclick="openUnreleasedTab('owen')">
-                    <img src="https://i.postimg.cc/8C2nXvX8/owen.jpg" alt="Owen" loading="lazy" onerror="this.classList.add('error'); this.src='data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"100\" height=\"100\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#B3B3B3\" stroke-width=\"2\"><path d=\"M12 4v16M4 12h16\"/></svg>'">
+                    <img src="https://i1.sndcdn.com/avatars-ZiXFkGIcE7sX2kOA-8gEnZw-t500x500.jpg" alt="Owen" loading="lazy" onerror="handleImageError(this, 'https://via.placeholder.com/220x220.png?text=Owen')">
                     <h3>Owen</h3>
                     <p>Hip-Hop / Rap</p>
                 </div>
                 <div class="artist" onclick="openUnreleasedTab('dree-low')">
-                    <img src="https://i.postimg.cc/JhsvF0cN/bccc3da8-a534-4df8-b407-d725f060c56b.jpg" alt="Dree Low" loading="lazy" onerror="this.classList.add('error'); this.src='data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"100\" height=\"100\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#B3B3B3\" stroke-width=\"2\"><path d=\"M12 4v16M4 12h16\"/></svg>'">
+                    <img src="https://i.postimg.cc/JhsvF0cN/bccc3da8-a534-4df8-b407-d725f060c56b.jpg" alt="Dree Low" loading="lazy" onerror="handleImageError(this, 'https://via.placeholder.com/220x220.png?text=Dree+Low')">
                     <h3>Dree Low</h3>
                     <p>Hip-Hop / Rap</p>
                 </div>
                 <div class="artist" onclick="openUnreleasedTab('thrife')">
-                    <img src="https://imgs.search.brave.com/6dplzaJxc2Y60Rf_tE3-G8OHWrdvylQGpqJKZv-aWR8/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9kb3Bl/c3Quc2UvX25leHQv/aW1hZ2UvP3VybD1o/dHRwczovL3dwLmRv/cGVzdC5zZS93cC1j/b250ZW50L3VwbG9h/ZHMvMjAyMS8wNC90/aHJpZmUtcGFjbWFu/LmpwZyZ3PTE5MjAm/cT03NQ" alt="Thrife" loading="lazy" onerror="this.classList.add('error'); this.src='data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"100\" height=\"100\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#B3B3B3\" stroke-width=\"2\"><path d=\"M12 4v16M4 12h16\"/></svg>'">
+                    <img src="https://imgs.search.brave.com/6dplzaJxc2Y60Rf_tE3-G8OHWrdvylQGpqJKZv-aWR8/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9kb3Bl/c3Quc2UvX25leHQv/aW1hZ2UvP3VybD1o/dHRwczovL3dwLmRv/cGVzdC5zZS93cC1j/b250ZW50L3VwbG9h/ZHMvMjAyMS8wNC90/aHJpZmUtcGFjbWFu/LmpwZyZ3PTE5MjAm/cT03NQ" alt="Thrife" loading="lazy" onerror="handleImageError(this, 'https://via.placeholder.com/220x220.png?text=Thrife')">
                     <h3>Thrife</h3>
                     <p>Hip-Hop / Rap</p>
                 </div>
@@ -401,6 +401,14 @@
                     <iframe loading="lazy" width="100%" height="220" src="${song.src}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
                 </div>
             `).join('');
+        }
+
+        function handleImageError(img, fallbackSrc) {
+            if (!img.dataset.retry) {
+                img.dataset.retry = 'true';
+                img.src = fallbackSrc;
+                img.classList.add('error');
+            }
         }
 
         function openUnreleasedTab(artist) {
