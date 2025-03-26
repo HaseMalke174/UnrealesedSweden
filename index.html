@@ -130,10 +130,6 @@
             opacity: 0.5;
         }
 
-        .artist img[onerror] {
-            background: #2a2a2a url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="#B3B3B3" stroke-width="2"><path d="M12 4v16M4 12h16"/></svg>') no-repeat center;
-        }
-
         .artist h3 {
             font-size: 1.3rem;
             font-weight: 600;
@@ -279,7 +275,7 @@
         </div>
         <nav>
             <ul>
-                <li><a href="#" onclick="scrollToSection('featured')">Home</a></li>
+                <li><a href="#" id="homeLink">Home</a></li>
                 <li><a href="#" onclick="openSongRequest()">Song Request</a></li>
                 <li><a href="#">Library</a></li>
             </ul>
@@ -293,24 +289,24 @@
     <main>
         <section class="featured" id="featured">
             <h2>Featured Artists</h2>
-            <div class="artist-list">
-                <div class="artist" onclick="openUnreleasedTab('einar')">
-                    <img src="https://i.ibb.co/xtf0Y89r/einar-skutt-mot-10-ganger-stockholm-dodspatrullen-husbys-hyenor.webp" alt="Einár" loading="lazy" onerror="handleImageError(this, 'https://via.placeholder.com/220x220.png?text=Einár')">
+            <div class="artist-list" id="artistList">
+                <div class="artist" onclick="showArtistSongs('einar')">
+                    <img src="https://i.ibb.co/xtf0Y89/einar-skutt-mot-10-ganger-stockholm-dodspatrullen-husbys-hyenor.webp" alt="Einár" loading="lazy" onerror="this.src='https://via.placeholder.com/220x220.png?text=Einár'; this.classList.add('error')">
                     <h3>Einár</h3>
                     <p>Hip-Hop / Rap</p>
                 </div>
-                <div class="artist" onclick="openUnreleasedTab('owen')">
-                    <img src="https://imgs.search.brave.com/YwlLgg3hsbVBt3EzDYebUX2vL17Gt5hAH1d8jT5VsgQ/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pMS5z/bmRjZG4uY29tL2Fy/dHdvcmtzLXUzNlI4/SjVjbFJrYWcwbDQt/QnNVZzlRLXQxMDgw/eDEwODAuanBn" alt="Owen" loading="lazy" onerror="handleImageError(this, 'https://via.placeholder.com/220x220.png?text=Owen')">
+                <div class="artist" onclick="showArtistSongs('owen')">
+                    <img src="https://imgs.search.brave.com/YwlLgg3hsbVBt3EzDYebUX2vL17Gt5hAH1d8jT5VsgQ/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9pMS5z/bmRjZG4uY29tL2Fy/dHdvcmtzLXUzNlI4/SjVjbFJrYWcwbDQt/QnNVZzlRLXQxMDgw/eDEwODAuanBn" alt="Owen" loading="lazy" onerror="this.src='https://via.placeholder.com/220x220.png?text=Owen'; this.classList.add('error')">
                     <h3>Owen</h3>
                     <p>Hip-Hop / Rap</p>
                 </div>
-                <div class="artist" onclick="openUnreleasedTab('dree-low')">
-                    <img src="https://i.postimg.cc/JhsvF0cN/bccc3da8-a534-4df8-b407-d725f060c56b.jpg" alt="Dree Low" loading="lazy" onerror="handleImageError(this, 'https://via.placeholder.com/220x220.png?text=Dree+Low')">
+                <div class="artist" onclick="showArtistSongs('dree-low')">
+                    <img src="https://i.postimg.cc/JhsvF0cN/bccc3da8-a534-4df8-b407-d725f060c56b.jpg" alt="Dree Low" loading="lazy" onerror="this.src='https://via.placeholder.com/220x220.png?text=Dree+Low'; this.classList.add('error')">
                     <h3>Dree Low</h3>
                     <p>Hip-Hop / Rap</p>
                 </div>
-                <div class="artist" onclick="openUnreleasedTab('thrife')">
-                    <img src="https://imgs.search.brave.com/6dplzaJxc2Y60Rf_tE3-G8OHWrdvylQGpqJKZv-aWR8/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9kb3Bl/c3Quc2UvX25leHQv/aW1hZ2UvP3VybD1o/dHRwczovL3dwLmRv/cGVzdC5zZS93cC1j/b250ZW50L3VwbG9h/ZHMvMjAyMS8wNC90/aHJpZmUtcGFjbWFu/LmpwZyZ3PTE5MjAm/cT03NQ" alt="Thrife" loading="lazy" onerror="handleImageError(this, 'https://via.placeholder.com/220x220.png?text=Thrife')">
+                <div class="artist" onclick="showArtistSongs('thrife')">
+                    <img src="https://imgs.search.brave.com/6dplzaJxc2Y60Rf_tE3-G8OHWrdvylQGpqJKZv-aWR8/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9kb3Bl/c3Quc2UvX25leHQv/aW1hZ2UvP3VybD1o/dHRwczovL3dwLmRv/cGVzdC5zZS93cC1j/b250ZW50L3VwbG9h/ZHMvMjAyMS8wNC90/aHJpZmUtcGFjbWFu/LmpwZyZ3PTE5MjAm/cT03NQ" alt="Thrife" loading="lazy" onerror="this.src='https://via.placeholder.com/220x220.png?text=Thrife'; this.classList.add('error')">
                     <h3>Thrife</h3>
                     <p>Hip-Hop / Rap</p>
                 </div>
@@ -340,6 +336,7 @@
     </footer>
 
     <script>
+        // Artist song data
         const einarSongs = [
             {title: "Lugnet Före Stormen", src: "https://audiomack.com/embed/album/cs1-3/lugnet-fore-stormen"},
             {title: "Sett Nånting", src: "https://audiomack.com/embed/song/magmareaper4/einar-x-mpl-sett-nanting"},
@@ -354,7 +351,6 @@
             {title: "SSM LS", src: "https://audiomack.com/embed/song/cs1-3/ssm-ls"},
             {title: "Va Säger Du Baby (Studio Kvalitet)", src: "https://audiomack.com/embed/song/cs1-3/einar-va-sager-du-baby-studio-kvalitet"},
             {title: "Para", src: "https://audiomack.com/embed/song/cs1-3/einar-para-oslappt"},
-            {title: "Freestyle ft. Dree Low & Madi Banja", src: "https://audiomack.com/embed/song/cs1-3/einar-dree-low-madi-banja-freestyle"},
             {title: "Pop Smoke 2 ft. 5iftyy & Moewgli", src: "https://audiomack.com/embed/song/cs1-3/einar-5iftyy-moewgli-pop-smoke-2"},
             {title: "Psykopater ft. Greekazo", src: "https://audiomack.com/embed/song/cs1-3/einar-x-greekazo-psykopater-official-oslappt-audio-sjuk-lat"},
             {title: "What What ft. Dree Low", src: "https://audiomack.com/embed/song/cs1-3/dree-low-ft-einar-what-what"},
@@ -390,10 +386,14 @@
         const thrifeSongs = [
             {title: "Stress ft. Einár & Owen", src: "https://audiomack.com/embed/song/cs1-3/einar-x-owen-x-thrife-stress-oslappt-bast-kvalite"},
             {title: "Designer ft. Einár", src: "https://audiomack.com/embed/song/cs1-3/einar-x-thrife-desginer"},
-            { "title": "Welcome to the Party (Osläppt)", "src": "https://audiomack.com/embed/song/magmareaper4/thrife-x-rami-x-2clock-welcome-to-the-party-oslappt" }
+            {title: "Welcome to the Party (Osläppt)", src: "https://audiomack.com/embed/song/magmareaper4/thrife-x-rami-x-2clock-welcome-to-the-party-oslappt"},
             {title: "Meckar En Kush ft. Einár", src: "https://audiomack.com/embed/song/cs1-3/einar-x-thrife-meckar-en-kush"}
         ];
 
+        // Store the original featured artists HTML to restore it later
+        const originalContent = document.getElementById('featured').innerHTML;
+
+        // Function to generate album list HTML
         function generateAlbumList(songs) {
             return songs.map(song => `
                 <div class="album">
@@ -403,16 +403,8 @@
             `).join('');
         }
 
-        function handleImageError(img, fallbackSrc) {
-            if (!img.dataset.retry) {
-                img.dataset.retry = 'true';
-                img.src = fallbackSrc;
-                img.classList.add('error');
-                console.log(`Image failed to load, switched to fallback: ${fallbackSrc}`);
-            }
-        }
-
-        function openUnreleasedTab(artist) {
+        // Function to show artist songs in the same tab
+        function showArtistSongs(artist) {
             let songs, artistName;
             if (artist === 'einar') {
                 songs = einarSongs;
@@ -432,135 +424,34 @@
             }
 
             const songCount = songs.length;
-
-            const newTab = window.open('', '_blank');
-            if (!newTab) {
-                alert('Please allow pop-ups to view the unreleased tracks.');
-                return;
-            }
-            newTab.document.title = `UnreleasedSweden - ${artistName}`;
-            newTab.document.write(`
-                <!DOCTYPE html>
-                <html lang="en">
-                <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <title>UnreleasedSweden - ${artistName}</title>
-                    <style>
-                        body {
-                            font-family: 'Poppins', sans-serif;
-                            background-color: #121212;
-                            color: white;
-                            margin: 0;
-                            padding: 0;
-                            -webkit-font-smoothing: antialiased;
-                        }
-                        h1, h2, p {
-                            text-align: center;
-                            margin: 20px 0;
-                        }
-                        .album-list {
-                            display: grid;
-                            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-                            gap: 30px;
-                            padding: 20px;
-                            margin-top: 30px;
-                            max-width: 1200px;
-                            margin-left: auto;
-                            margin-right: auto;
-                        }
-                        .album {
-                            background-color: #1a1a1a;
-                            padding: 15px;
-                            border-radius: 10px;
-                            text-align: center;
-                        }
-                        .album iframe {
-                            width: 100%;
-                            height: 220px;
-                            border: 0;
-                            border-radius: 8px;
-                        }
-                        header {
-                            background-color: #1a1a1a;
-                            padding: 20px;
-                            display: flex;
-                            justify-content: space-between;
-                            align-items: center;
-                            position: sticky;
-                            top: 0;
-                            z-index: 1000;
-                            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-                        }
-                        header .logo h1 {
-                            font-size: 2rem;
-                            color: #1DB954;
-                        }
-                        header nav ul {
-                            list-style: none;
-                            display: flex;
-                            margin: 0;
-                            padding: 0;
-                        }
-                        header nav ul li {
-                            margin-left: 25px;
-                        }
-                        header nav ul li a {
-                            font-size: 1.1rem;
-                            color: #B3B3B3;
-                            font-weight: 400;
-                            padding: 10px 15px;
-                            transition: color 0.3s ease;
-                        }
-                        header nav ul li a:hover {
-                            color: #1DB954;
-                        }
-                        footer {
-                            background-color: #1a1a1a;
-                            padding: 25px;
-                            text-align: center;
-                            margin-top: 60px;
-                            border-top: 1px solid #2a2a2a;
-                        }
-                        footer p {
-                            color: #B3B3B3;
-                            font-size: 1rem;
-                        }
-                        .counter {
-                            color: #1DB954;
-                            font-size: 1.2rem;
-                            margin: 15px 0;
-                            font-weight: 600;
-                        }
-                    </style>
-                </head>
-                <body>
-                    <header>
-                        <div class="logo">
-                            <h1>UnreleasedSweden</h1>
-                        </div>
-                        <nav>
-                            <ul>
-                                <li><a href="#" onclick="window.close()">Home</a></li>
-                                <li><a href="#" onclick="alert('Please use the main page to request songs.')">Song Request</a></li>
-                                <li><a href="#">Library</a></li>
-                            </ul>
-                        </nav>
-                    </header>
-                    <h1>Unreleased Tracks by ${artistName}</h1>
-                    <p class="counter">Total Tracks: ${songCount}</p>
-                    <div class="album-list">
-                        ${generateAlbumList(songs)}
-                    </div>
-                    <footer>
-                        <p>© 2025 UnreleasedSweden. All rights reserved.</p>
-                    </footer>
-                </body>
-                </html>
-            `);
-            newTab.document.close();
+            const featuredSection = document.getElementById('featured');
+            featuredSection.innerHTML = `
+                <h2>Unreleased Tracks by ${artistName}</h2>
+                <p class="counter">Total Tracks: ${songCount}</p>
+                <div class="album-list">
+                    ${generateAlbumList(songs)}
+                </div>
+            `;
+            window.scrollTo({ top: featuredSection.offsetTop, behavior: 'smooth' });
         }
 
+        // Function to restore the home page
+        function showHome() {
+            document.getElementById('featured').innerHTML = originalContent;
+            // Reattach event listeners to artist cards after restoring
+            document.querySelectorAll('.artist').forEach(artist => {
+                artist.onclick = () => showArtistSongs(artist.getAttribute('onclick').match(/'([^']+)'/)[1]);
+            });
+            window.scrollTo({ top: document.getElementById('featured').offsetTop, behavior: 'smooth' });
+        }
+
+        // Attach home link functionality
+        document.getElementById('homeLink').addEventListener('click', (e) => {
+            e.preventDefault();
+            showHome();
+        });
+
+        // Song request modal functions
         function openSongRequest() {
             document.getElementById('songRequestModal').style.display = 'flex';
         }
@@ -569,6 +460,7 @@
             document.getElementById('songRequestModal').style.display = 'none';
         }
 
+        // Song request form submission
         document.getElementById('songRequestForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const name = this.querySelector('input[placeholder="Your Name"]').value;
@@ -579,7 +471,7 @@
             const coverDescription = this.querySelector('textarea[placeholder="Album Cover Description (Optional)"]').value || 'Not provided';
             const albumCoverFile = this.querySelector('#albumCover').files[0];
 
-            const webhookUrl = 'YOUR_WEBHOOK_URL_HERE';
+            const webhookUrl = 'YOUR_WEBHOOK_URL_HERE'; // Replace with actual URL
 
             const payload = {
                 content: "New Song Request",
@@ -602,30 +494,24 @@
                 const formData = new FormData();
                 formData.append('file', albumCoverFile);
                 formData.append('payload_json', JSON.stringify(payload));
-
-                fetch(webhookUrl, {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => {
-                    if (response.ok) {
-                        alert('Thank you for your request! We’ll review it soon.');
-                        closeSongRequest();
-                        this.reset();
-                    } else {
+                fetch(webhookUrl, { method: 'POST', body: formData })
+                    .then(response => {
+                        if (response.ok) {
+                            alert('Thank you for your request! We’ll review it soon.');
+                            closeSongRequest();
+                            this.reset();
+                        } else {
+                            alert('Error submitting request. Please try again.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
                         alert('Error submitting request. Please try again.');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('Error submitting request. Please try again.');
-                });
+                    });
             } else {
                 fetch(webhookUrl, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
                 })
                 .then(response => {
@@ -643,10 +529,6 @@
                 });
             }
         });
-
-        function scrollToSection(sectionId) {
-            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
-        }
     </script>
 </body>
 </html>
