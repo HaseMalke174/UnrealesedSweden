@@ -183,7 +183,6 @@
             font-weight: 600;
         }
 
-        /* Modal Styles */
         .modal {
             display: none;
             position: fixed;
@@ -223,7 +222,7 @@
         }
 
         .modal-content input[type="file"] {
-            padding: 5px; /* Adjust padding for file input */
+            padding: 5px;
         }
 
         .modal-content button {
@@ -249,7 +248,6 @@
             color: #B3B3B3;
         }
 
-        /* Media Query for Smaller Screens */
         @media (max-width: 600px) {
             .artist-list {
                 grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -312,7 +310,6 @@
         </section>
     </main>
 
-    <!-- Song Request Modal -->
     <div id="songRequestModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeSongRequest()">×</span>
@@ -340,8 +337,8 @@
             {title: "Sett Nånting", src: "https://audiomack.com/embed/song/magmareaper4/einar-x-mpl-sett-nanting"},
             {title: "Centrum", src: "https://audiomack.com/embed/song/magmareaper4/einar-centrum"},
             {title: "GG PP ft. Moewgli & 5ifty", src: "https://audiomack.com/embed/song/cs1-3/einar-gg-pp-ft-moewgli-5ifty-oslappt"},
-            {title: "Wifi ft. Jireel", src: "https://audiomack.com/cs1-3/song/jireel-einar-wifi"}
-            {title: "CHernobyl", src: "https://audiomack.com/cs1-3/song/chernobyl-einar"}
+            {title: "Wifi ft. Jireel", src: "https://audiomack.com/embed/song/cs1-3/jireel-einar-wifi"},
+            {title: "CHernobyl", src: "https://audiomack.com/embed/song/cs1-3/chernobyl-einar"},
             {title: "Annan Gang (Bäst Kvalité)", src: "https://audiomack.com/embed/song/cs1-3/einar-x-lelo-annan-gang-bast-kvalite-hela-oslappt"},
             {title: "Gangland ft. Aden", src: "https://audiomack.com/embed/song/cs1-3/aden-x-einr-gangland"},
             {title: "Tragic ft. 23 & 5iftyy", src: "https://audiomack.com/embed/song/cs1-3/einar-ft-23-5iftyy-tragic"},
@@ -406,12 +403,19 @@
             } else if (artist === 'thrife') {
                 songs = thrifeSongs;
                 artistName = 'Thrife';
+            } else {
+                console.error('Unknown artist:', artist);
+                return;
             }
 
             const songCount = songs.length;
 
             const newTab = window.open('', '_blank');
-            newTab.document.title = "UnreleasedSweden";
+            if (!newTab) {
+                alert('Please allow pop-ups to view the unreleased tracks.');
+                return;
+            }
+            newTab.document.title = `UnreleasedSweden - ${artistName}`;
             newTab.document.write(`
                 <!DOCTYPE html>
                 <html lang="en">
@@ -520,13 +524,11 @@
                             </ul>
                         </nav>
                     </header>
-
                     <h1>Unreleased Tracks by ${artistName}</h1>
                     <p class="counter">Total Tracks: ${songCount}</p>
                     <div class="album-list">
                         ${generateAlbumList(songs)}
                     </div>
-
                     <footer>
                         <p>© 2025 UnreleasedSweden. All rights reserved.</p>
                     </footer>
@@ -536,7 +538,6 @@
             newTab.document.close();
         }
 
-        // Song Request Modal Functions
         function openSongRequest() {
             document.getElementById('songRequestModal').style.display = 'flex';
         }
@@ -547,8 +548,6 @@
 
         document.getElementById('songRequestForm').addEventListener('submit', function(e) {
             e.preventDefault();
-
-            // Get form values
             const name = this.querySelector('input[placeholder="Your Name"]').value;
             const email = this.querySelector('input[placeholder="Email (Optional)"]').value || 'Not provided';
             const artist = this.querySelector('input[placeholder="Artist Name"]').value;
@@ -557,15 +556,13 @@
             const coverDescription = this.querySelector('textarea[placeholder="Album Cover Description (Optional)"]').value || 'Not provided';
             const albumCoverFile = this.querySelector('#albumCover').files[0];
 
-            // Discord webhook URL (replace with your actual webhook URL)
             const webhookUrl = 'YOUR_WEBHOOK_URL_HERE';
 
-            // Create the message payload for Discord
             const payload = {
                 content: "New Song Request",
                 embeds: [{
                     title: "Song Request Details",
-                    color: 1942002, // Spotify green in decimal
+                    color: 1942002,
                     fields: [
                         { name: "Name", value: name, inline: true },
                         { name: "Email", value: email, inline: true },
@@ -578,7 +575,6 @@
                 }]
             };
 
-            // If an album cover file is uploaded, handle it separately
             if (albumCoverFile) {
                 const formData = new FormData();
                 formData.append('file', albumCoverFile);
@@ -594,15 +590,14 @@
                         closeSongRequest();
                         this.reset();
                     } else {
-                        alert('There was an error submitting your request. Please try again.');
+                        alert('Error submitting request. Please try again.');
                     }
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    alert('There was an error submitting your request. Please try again.');
+                    alert('Error submitting request. Please try again.');
                 });
             } else {
-                // No file, just send the JSON payload
                 fetch(webhookUrl, {
                     method: 'POST',
                     headers: {
@@ -616,17 +611,16 @@
                         closeSongRequest();
                         this.reset();
                     } else {
-                        alert('There was an error submitting your request. Please try again.');
+                        alert('Error submitting request. Please try again.');
                     }
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    alert('There was an error submitting your request. Please try again.');
+                    alert('Error submitting request. Please try again.');
                 });
             }
         });
 
-        // Smooth Scroll to Section
         function scrollToSection(sectionId) {
             document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
         }
