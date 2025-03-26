@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -223,6 +222,10 @@
             font-family: 'Poppins', sans-serif;
         }
 
+        .modal-content input[type="file"] {
+            padding: 5px; /* Adjust padding for file input */
+        }
+
         .modal-content button {
             background-color: #1DB954;
             color: white;
@@ -309,11 +312,14 @@
         <div class="modal-content">
             <span class="close" onclick="closeSongRequest()">×</span>
             <h2>Song Request</h2>
-            <form id="songRequestForm">
+            <form id="songRequestForm" enctype="multipart/form-data">
                 <input type="text" placeholder="Your Name" required>
-                <input type="email" placeholder="Your Email" required>
+                <input type="email" placeholder="Email (Optional)">
                 <input type="text" placeholder="Artist Name" required>
-                <textarea placeholder="Song Title or Description" rows="4" required></textarea>
+                <input type="text" placeholder="Song Name/Title" required>
+                <input type="text" placeholder="Release Date (e.g., March 2025)" required>
+                <textarea placeholder="Album Cover Description (Optional)" rows="4"></textarea>
+                <input type="file" accept="image/*" id="albumCover" name="albumCover">
                 <button type="submit">Submit Request</button>
             </form>
         </div>
@@ -522,12 +528,15 @@
 
         document.getElementById('songRequestForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            
+
             // Get form values
             const name = this.querySelector('input[placeholder="Your Name"]').value;
-            const email = this.querySelector('input[placeholder="Your Email"]').value;
+            const email = this.querySelector('input[placeholder="Email (Optional)"]').value || 'Not provided';
             const artist = this.querySelector('input[placeholder="Artist Name"]').value;
-            const song = this.querySelector('textarea[placeholder="Song Title or Description"]').value;
+            const song = this.querySelector('input[placeholder="Song Name/Title"]').value;
+            const releaseDate = this.querySelector('input[placeholder="Release Date (e.g., March 2025)"]').value;
+            const coverDescription = this.querySelector('textarea[placeholder="Album Cover Description (Optional)"]').value || 'Not provided';
+            const albumCoverFile = this.querySelector('#albumCover').files[0];
 
             // Discord webhook URL (replace with your actual webhook URL)
             const webhookUrl = 'YOUR_WEBHOOK_URL_HERE';
@@ -542,33 +551,60 @@
                         { name: "Name", value: name, inline: true },
                         { name: "Email", value: email, inline: true },
                         { name: "Artist", value: artist, inline: false },
-                        { name: "Song/Description", value: song, inline: false },
-                        { name: "Timestamp", value: new Date().toLocaleString(), inline: false }
-                    ]
+                        { name: "Song Name/Title", value: song, inline: false },
+                        { name: "Release Date", value: releaseDate, inline: false },
+                        { name: "Album Cover Description", value: coverDescription, inline: false }
+                    ],
+                    timestamp: new Date().toISOString()
                 }]
             };
 
-            // Send the request to Discord webhook
-            fetch(webhookUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(payload)
-            })
-            .then(response => {
-                if (response.ok) {
-                    alert('Thank you for your request! We’ll review it soon.');
-                    closeSongRequest();
-                    this.reset();
-                } else {
+            // If an album cover file is uploaded, handle it separately
+            if (albumCoverFile) {
+                const formData = new FormData();
+                formData.append('file', albumCoverFile);
+                formData.append('payload_json', JSON.stringify(payload));
+
+                fetch(webhookUrl, {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => {
+                    if (response.ok) {
+                        alert('Thank you for your request! We’ll review it soon.');
+                        closeSongRequest();
+                        this.reset();
+                    } else {
+                        alert('There was an error submitting your request. Please try again.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
                     alert('There was an error submitting your request. Please try again.');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('There was an error submitting your request. Please try again.');
-            });
+                });
+            } else {
+                // No file, just send the JSON payload
+                fetch(webhookUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(payload)
+                })
+                .then(response => {
+                    if (response.ok) {
+                        alert('Thank you for your request! We’ll review it soon.');
+                        closeSongRequest();
+                        this.reset();
+                    } else {
+                        alert('There was an error submitting your request. Please try again.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('There was an error submitting your request. Please try again.');
+                });
+            }
         });
 
         // Smooth Scroll to Section
@@ -578,4 +614,3 @@
     </script>
 </body>
 </html>
-
