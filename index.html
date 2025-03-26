@@ -295,12 +295,12 @@
             <h2>Featured Artists</h2>
             <div class="artist-list">
                 <div class="artist" onclick="openUnreleasedTab('einar')">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Ein%C3%A5r_2019.jpg/220px-Ein%C3%A5r_2019.jpg" alt="Einár" loading="lazy" onerror="handleImageError(this, 'https://via.placeholder.com/220x220.png?text=Einár')">
+                    <img src="https://i.ibb.co/xtf0Y89/einar-skutt-mot-10-ganger-stockholm-dodspatrullen-husbys-hyenor.webp" alt="Einár" loading="lazy" onerror="handleImageError(this, 'https://via.placeholder.com/220x220.png?text=Einár')">
                     <h3>Einár</h3>
                     <p>Hip-Hop / Rap</p>
                 </div>
                 <div class="artist" onclick="openUnreleasedTab('owen')">
-                    <img src="https://i1.sndcdn.com/avatars-ZiXFkGIcE7sX2kOA-8gEnZw-t500x500.jpg" alt="Owen" loading="lazy" onerror="handleImageError(this, 'https://via.placeholder.com/220x220.png?text=Owen')">
+                    <img src="https://imgs.search.brave.com/YwlLgg3hsbVBt3EzDYebUX2vL17Gt5hAH1d8jT5VsgQ/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pMS5z/bmRjZG4uY29tL2Fy/dHdvcmtzLXUzNlI4/SjVjbFJrYWcwbDQt/QnNVZzlRLXQxMDgw/eDEwODAuanBn" alt="Owen" loading="lazy" onerror="handleImageError(this, 'https://via.placeholder.com/220x220.png?text=Owen')">
                     <h3>Owen</h3>
                     <p>Hip-Hop / Rap</p>
                 </div>
@@ -408,6 +408,7 @@
                 img.dataset.retry = 'true';
                 img.src = fallbackSrc;
                 img.classList.add('error');
+                console.log(`Image failed to load, switched to fallback: ${fallbackSrc}`);
             }
         }
 
