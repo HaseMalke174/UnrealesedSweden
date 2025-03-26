@@ -294,13 +294,18 @@
                     <p>Hip-Hop / Rap</p>
                 </div>
                 <div class="artist" onclick="openUnreleasedTab('owen')">
-                    <img src="https://imgs.search.brave.com/YwlLgg3hsbVBt3EzDYebUX2vL17Gt5hAH1d8jT5VsgQ/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pMS5z/bmRjZG4uY29tL2Fy/dHdvcmtzLXUzNlI4/SjVjbFJrYWcwbDQt/QnNVZzlRLXQxMDgw/eDEwODAuanBn" alt="Owen" loading="lazy">
+                    <img src="https://imgs.search.brave.com/YwlLgg3hsbVBt3EzDYebUX2vL17Gt5hAH1d8jT5VsgQ/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pMS5z/bmRjZG4uY29tL2Fy/dHdvcmtzLXUzNlI4/SjVjbFJrYWcwbDQt-QnNVZzlRLXQxMDgw/eDEwODAuanBn" alt="Owen" loading="lazy">
                     <h3>Owen</h3>
                     <p>Hip-Hop / Rap</p>
                 </div>
                 <div class="artist" onclick="openUnreleasedTab('dree-low')">
                     <img src="https://i.postimg.cc/JhsvF0cN/bccc3da8-a534-4df8-b407-d725f060c56b.jpg" alt="Dree Low" loading="lazy">
                     <h3>Dree Low</h3>
+                    <p>Hip-Hop / Rap</p>
+                </div>
+                <div class="artist" onclick="openUnreleasedTab('thrife')">
+                    <img src="https://imgs.search.brave.com/6dplzaJxc2Y60Rf_tE3-G8OHWrdvylQGpqJKZv-aWR8/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9kb3Bl/c3Quc2UvX25leHQv/aW1hZ2UvP3VybD1o/dHRwczovL3dwLmRv/cGVzdC5zZS93cC1j/b250ZW50L3VwbG9h/ZHMvMjAyMS8wNC90/aHJpZmUtcGFjbWFu/LmpwZyZ3PTE5MjAm/cT03NQ" alt="Thrife" loading="lazy">
+                    <h3>Thrife</h3>
                     <p>Hip-Hop / Rap</p>
                 </div>
             </div>
@@ -367,6 +372,12 @@
             {title: "Blåser Kallt ft. Einár", src: "https://audiomack.com/embed/song/magmareaper4/einar-x-dree-low-blser-kallt"}
         ];
 
+        const thrifeSongs = [
+            {title: "Stress ft. Einár & Owen", src: "https://audiomack.com/embed/song/cs1-3/einar-x-owen-x-thrife-stress-oslappt-bast-kvalite"},
+            {title: "Designer ft. Einár", src: "https://audiomack.com/embed/song/cs1-3/einar-x-thrife-desginer"},
+            {title: "Placeholder Track", src: "https://audiomack.com/embed/song/placeholder"} // Replace with real tracks
+        ];
+
         function generateAlbumList(songs) {
             return songs.map(song => `
                 <div class="album">
@@ -387,6 +398,9 @@
             } else if (artist === 'dree-low') {
                 songs = dreeLowSongs;
                 artistName = 'Dree Low';
+            } else if (artist === 'thrife') {
+                songs = thrifeSongs;
+                artistName = 'Thrife';
             }
 
             const songCount = songs.length;
@@ -395,7 +409,7 @@
             newTab.document.title = "UnreleasedSweden";
             newTab.document.write(`
                 <!DOCTYPE html>
-                <html lang="en">
+                <html lang="en…’>
                 <head>
                     <meta charset="UTF-8">
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
