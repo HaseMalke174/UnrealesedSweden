@@ -41,7 +41,7 @@
             font-size: 2rem;
             color: #1DB954;
             font-weight: 600;
-            cursor: pointer; /* Added to indicate clickability */
+            cursor: pointer;
         }
 
         header nav ul {
@@ -257,6 +257,27 @@
             color: #B3B3B3;
         }
 
+        /* Search bar styles */
+        .search-container {
+            margin: 20px auto;
+            max-width: 500px;
+        }
+
+        .search-container input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #B3B3B3;
+            border-radius: 5px;
+            background-color: #2a2a2a;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+        }
+
+        .search-container input[type="text"]::placeholder {
+            color: #B3B3B3;
+        }
+
         @media (max-width: 600px) {
             .artist-list {
                 grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -276,7 +297,7 @@
 <body>
     <header>
         <div class="logo">
-            <h1 onclick="showHome()">UnreleasedSweden</h1> <!-- Made clickable -->
+            <h1 onclick="showHome()">UnreleasedSweden</h1>
         </div>
         <nav>
             <ul>
@@ -400,7 +421,7 @@
 
         function generateAlbumList(songs) {
             return songs.map(song => `
-                <div class="album">
+                <div class="album" data-title="${song.title.toLowerCase()}">
                     <h2>${song.title}</h2>
                     <iframe loading="lazy" width="100%" height="220" src="${song.src}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
                 </div>
@@ -416,7 +437,7 @@
             }
         }
 
-        // Updated to display songs in the same tab
+        // Updated to display songs in the same tab with a search bar
         function showArtistSongs(artist) {
             let songs, artistName;
             if (artist === 'einar') {
@@ -441,14 +462,32 @@
             featuredSection.innerHTML = `
                 <h2>Unreleased Tracks by ${artistName}</h2>
                 <p class="counter">Total Tracks: ${songCount}</p>
-                <div class="album-list">
+                <div class="search-container">
+                    <input type="text" id="songSearch" placeholder="Search for a song by name...">
+                </div>
+                <div class="album-list" id="albumList">
                     ${generateAlbumList(songs)}
                 </div>
             `;
             window.scrollTo({ top: featuredSection.offsetTop, behavior: 'smooth' });
+
+            // Add search functionality
+            const searchInput = document.getElementById('songSearch');
+            searchInput.addEventListener('input', function() {
+                const query = this.value.toLowerCase();
+                const albums = document.querySelectorAll('.album');
+                albums.forEach(album => {
+                    const title = album.getAttribute('data-title');
+                    if (title.includes(query)) {
+                        album.style.display = 'block';
+                    } else {
+                        album.style.display = 'none';
+                    }
+                });
+            });
         }
 
-        // Function to restore the home page (used by both logo and Home link)
+        // Function to restore the home page
         function showHome() {
             document.getElementById('featured').innerHTML = originalContent;
             // Reattach event listeners to artist cards after restoring
@@ -464,7 +503,7 @@
             showHome();
         });
 
-        function openUnreleasedTab(artist) { // Kept from your OG code, though not used now
+        function openUnreleasedTab(artist) {
             let songs, artistName;
             if (artist === 'einar') {
                 songs = einarSongs;
