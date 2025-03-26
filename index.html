@@ -126,6 +126,14 @@
             display: block;
         }
 
+        .artist img.error {
+            opacity: 0.5;
+        }
+
+        .artist img[onerror] {
+            background: #2a2a2a url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="#B3B3B3" stroke-width="2"><path d="M12 4v16M4 12h16"/></svg>') no-repeat center;
+        }
+
         .artist h3 {
             font-size: 1.3rem;
             font-weight: 600;
@@ -287,22 +295,22 @@
             <h2>Featured Artists</h2>
             <div class="artist-list">
                 <div class="artist" onclick="openUnreleasedTab('einar')">
-                    <img src="https://i.ibb.co/xtf0Y89r/einar-skutt-mot-10-ganger-stockholm-dodspatrullen-husbys-hyenor.webp" alt="Einár" loading="lazy">
+                    <img src="https://i.ibb.co/xtf0Y89/einar-skutt-mot-10-ganger-stockholm-dodspatrullen-husbys-hyenor.webp" alt="Einár" loading="lazy" onerror="this.classList.add('error'); this.src='data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"100\" height=\"100\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#B3B3B3\" stroke-width=\"2\"><path d=\"M12 4v16M4 12h16\"/></svg>'">
                     <h3>Einár</h3>
                     <p>Hip-Hop / Rap</p>
                 </div>
                 <div class="artist" onclick="openUnreleasedTab('owen')">
-                    <img src="https://i.scdn.co/image/ab6761610000e5eb62c2ad0ccdc5d80e5db2a5b8" alt="Owen" loading="lazy">
+                    <img src="https://i.postimg.cc/8C2nXvX8/owen.jpg" alt="Owen" loading="lazy" onerror="this.classList.add('error'); this.src='data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"100\" height=\"100\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#B3B3B3\" stroke-width=\"2\"><path d=\"M12 4v16M4 12h16\"/></svg>'">
                     <h3>Owen</h3>
                     <p>Hip-Hop / Rap</p>
                 </div>
                 <div class="artist" onclick="openUnreleasedTab('dree-low')">
-                    <img src="https://i.postimg.cc/JhsvF0cN/bccc3da8-a534-4df8-b407-d725f060c56b.jpg" alt="Dree Low" loading="lazy">
+                    <img src="https://i.postimg.cc/JhsvF0cN/bccc3da8-a534-4df8-b407-d725f060c56b.jpg" alt="Dree Low" loading="lazy" onerror="this.classList.add('error'); this.src='data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"100\" height=\"100\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#B3B3B3\" stroke-width=\"2\"><path d=\"M12 4v16M4 12h16\"/></svg>'">
                     <h3>Dree Low</h3>
                     <p>Hip-Hop / Rap</p>
                 </div>
                 <div class="artist" onclick="openUnreleasedTab('thrife')">
-                    <img src="https://imgs.search.brave.com/6dplzaJxc2Y60Rf_tE3-G8OHWrdvylQGpqJKZv-aWR8/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9kb3Bl/c3Quc2UvX25leHQv/aW1hZ2UvP3VybD1o/dHRwczovL3dwLmRv/cGVzdC5zZS93cC1j/b250ZW50L3VwbG9h/ZHMvMjAyMS8wNC90/aHJpZmUtcGFjbWFu/LmpwZyZ3PTE5MjAm/cT03NQ" alt="Thrife" loading="lazy">
+                    <img src="https://imgs.search.brave.com/6dplzaJxc2Y60Rf_tE3-G8OHWrdvylQGpqJKZv-aWR8/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9kb3Bl/c3Quc2UvX25leHQv/aW1hZ2UvP3VybD1o/dHRwczovL3dwLmRv/cGVzdC5zZS93cC1j/b250ZW50L3VwbG9h/ZHMvMjAyMS8wNC90/aHJpZmUtcGFjbWFu/LmpwZyZ3PTE5MjAm/cT03NQ" alt="Thrife" loading="lazy" onerror="this.classList.add('error'); this.src='data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"100\" height=\"100\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#B3B3B3\" stroke-width=\"2\"><path d=\"M12 4v16M4 12h16\"/></svg>'">
                     <h3>Thrife</h3>
                     <p>Hip-Hop / Rap</p>
                 </div>
@@ -348,7 +356,7 @@
             {title: "Para", src: "https://audiomack.com/embed/song/cs1-3/einar-para-oslappt"},
             {title: "Freestyle ft. Dree Low & Madi Banja", src: "https://audiomack.com/embed/song/cs1-3/einar-dree-low-madi-banja-freestyle"},
             {title: "Pop Smoke 2 ft. 5iftyy & Moewgli", src: "https://audiomack.com/embed/song/cs1-3/einar-5iftyy-moewgli-pop-smoke-2"},
-            {title: "Psykopater ft. Greekazo", src: "https://audiomack.com/embed/song/cs1-3/einar-x-greekazo-psykopater-official-oslappt-audio-sjuk-lat"}
+            {title: "Psykopater ft. Greekazo", src: "https://audiomack.com/embed/song/cs1-3/einar-x-greekazo-psykopater-official-oslappt-audio-sjuk-lat"},
             {title: "What What ft. Dree Low", src: "https://audiomack.com/embed/song/cs1-3/dree-low-ft-einar-what-what"},
             {title: "Steppa In", src: "https://audiomack.com/embed/song/magmareaper4/steppa-in-einr"},
             {title: "Kaos", src: "https://audiomack.com/embed/song/magmareaper4/einr-kaos"},
