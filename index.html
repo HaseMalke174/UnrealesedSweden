@@ -112,6 +112,7 @@
             text-align: center;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             cursor: pointer;
+            position: relative;
         }
 
         .artist:hover {
@@ -257,7 +258,6 @@
             color: #B3B3B3;
         }
 
-        /* Search bar styles */
         .search-container {
             margin: 20px auto;
             max-width: 500px;
@@ -336,6 +336,11 @@
                     <h3>Thrife</h3>
                     <p>Hip-Hop / Rap</p>
                 </div>
+                <div class="artist" onclick="showArtistSongs('yasin')">
+                    <img src="https://via.placeholder.com/220x220.png?text=Yasin" alt="Yasin" loading="lazy" onerror="handleImageError(this, 'https://via.placeholder.com/220x220.png?text=Yasin')">
+                    <h3>Yasin</h3>
+                    <p>Hip-Hop / Rap</p>
+                </div>
             </div>
         </section>
     </main>
@@ -363,57 +368,64 @@
 
     <script>
         const einarSongs = [
-            {title: "Lugnet Före Stormen", src: "https://audiomack.com/embed/album/cs1-3/lugnet-fore-stormen"},
-            {title: "Sett Nånting", src: "https://audiomack.com/embed/song/magmareaper4/einar-x-mpl-sett-nanting"},
-            {title: "Centrum", src: "https://audiomack.com/embed/song/magmareaper4/einar-centrum"},
-            {title: "GG PP ft. Moewgli & 5ifty", src: "https://audiomack.com/embed/song/cs1-3/einar-gg-pp-ft-moewgli-5ifty-oslappt"},
-            {title: "Wifi ft. Jireel", src: "https://audiomack.com/embed/song/cs1-3/jireel-einar-wifi"},
-            {title: "CHernobyl", src: "https://audiomack.com/embed/song/cs1-3/chernobyl-einar"},
-            {title: "Annan Gang (Bäst Kvalité)", src: "https://audiomack.com/embed/song/cs1-3/einar-x-lelo-annan-gang-bast-kvalite-hela-oslappt"},
-            {title: "Gangland ft. Aden", src: "https://audiomack.com/embed/song/cs1-3/aden-x-einr-gangland"},
-            {title: "Tragic ft. 23 & 5iftyy", src: "https://audiomack.com/embed/song/cs1-3/einar-ft-23-5iftyy-tragic"},
-            {title: "För Stor För Landet", src: "https://audiomack.com/embed/song/cs1-3/einar-for-stor-for-landet"},
-            {title: "SSM LS", src: "https://audiomack.com/embed/song/cs1-3/ssm-ls"},
-            {title: "Va Säger Du Baby (Studio Kvalitet)", src: "https://audiomack.com/embed/song/cs1-3/einar-va-sager-du-baby-studio-kvalitet"},
-            {title: "Para", src: "https://audiomack.com/embed/song/cs1-3/einar-para-oslappt"},
-            {title: "Freestyle ft. Dree Low & Madi Banja", src: "https://audiomack.com/embed/song/cs1-3/einar-dree-low-madi-banja-freestyle"},
-            {title: "Pop Smoke 2 ft. 5iftyy & Moewgli", src: "https://audiomack.com/embed/song/cs1-3/einar-5iftyy-moewgli-pop-smoke-2"},
-            {title: "Psykopater ft. Greekazo", src: "https://audiomack.com/embed/song/cs1-3/einar-x-greekazo-psykopater-official-oslappt-audio-sjuk-lat"},
-            {title: "What What ft. Dree Low", src: "https://audiomack.com/embed/song/cs1-3/dree-low-ft-einar-what-what"},
-            {title: "Steppa In", src: "https://audiomack.com/embed/song/magmareaper4/steppa-in-einr"},
-            {title: "Kaos", src: "https://audiomack.com/embed/song/magmareaper4/einr-kaos"},
-            {title: "Trapstar$ ft. Sulle", src: "https://audiomack.com/embed/song/magmareaper4/trapstar-1"},
-            {title: "Kilos", src: "https://audiomack.com/embed/song/cs1-3/einar-kilos"},
-            {title: "3Style Del 2", src: "https://audiomack.com/embed/song/magmareaper4/einr-3style-del-2"},
-            {title: "Southside ft. Euro", src: "https://audiomack.com/embed/song/cs1-3/einar-x-euro-southside-oslappt"},
-            {title: "Stress ft. Owen & Thrife", src: "https://audiomack.com/embed/song/cs1-3/einar-x-owen-x-thrife-stress-oslappt-bast-kvalite"},
-            {title: "Blåser Kallt ft. Dree Low", src: "https://audiomack.com/embed/song/magmareaper4/einar-x-dree-low-blser-kallt"},
-            {title: "See You Later ft. Icekiid", src: "https://audiomack.com/embed/song/cs1-3/einar-x-icekiid-see-you-later"},
-            {title: "Meckar En Kush ft. Thrife", src: "https://audiomack.com/embed/song/cs1-3/einar-x-thrife-meckar-en-kush"},
-            {title: "Ha Ha Ha (Fuck Fame) ft. Adaam", src: "https://audiomack.com/embed/song/magmareaper4/einar-x-adaam-ha-ha-ha-fuck-fame-hela-oslappt"},
-            {title: "Mina Grabbar", src: "https://audiomack.com/embed/song/cs1-3/einar-mina-grabbar"},
-            {title: "Falla Ner ft. C1cuz & Sarettii", src: "https://audiomack.com/embed/song/cs1-3/einar-c-1cuz-x-sarettii-falla-ner"},
-            {title: "Designer ft. Thrife", src: "https://audiomack.com/embed/song/cs1-3/einar-x-thrife-desginer"},
-            {title: "Freestyle ft. Dree Low & Madi Banja", src: "https://audiomack.com/embed/song/cs1-3/einar-dree-low-madi-banja-freestyle"},
-            {title: "Vi E Kvar", src: "https://audiomack.com/embed/song/cs1-3/einar-vi-e-kvar"}
+            { title: "Lugnet Före Stormen", src: "https://audiomack.com/embed/album/cs1-3/lugnet-fore-stormen" },
+            { title: "Sett Nånting", src: "https://audiomack.com/embed/song/magmareaper4/einar-x-mpl-sett-nanting" },
+            { title: "Centrum", src: "https://audiomack.com/embed/song/magmareaper4/einar-centrum" },
+            { title: "GG PP ft. Moewgli & 5ifty", src: "https://audiomack.com/embed/song/cs1-3/einar-gg-pp-ft-moewgli-5ifty-oslappt" },
+            { title: "Wifi ft. Jireel", src: "https://audiomack.com/embed/song/cs1-3/jireel-einar-wifi" },
+            { title: "CHernobyl", src: "https://audiomack.com/embed/song/cs1-3/chernobyl-einar" },
+            { title: "Annan Gang (Bäst Kvalité)", src: "https://audiomack.com/embed/song/cs1-3/einar-x-lelo-annan-gang-bast-kvalite-hela-oslappt" },
+            { title: "Gangland ft. Aden", src: "https://audiomack.com/embed/song/cs1-3/aden-x-einr-gangland" },
+            { title: "Tragic ft. 23 & 5iftyy", src: "https://audiomack.com/embed/song/cs1-3/einar-ft-23-5iftyy-tragic" },
+            { title: "För Stor För Landet", src: "https://audiomack.com/embed/song/cs1-3/einar-for-stor-for-landet" },
+            { title: "SSM LS", src: "https://audiomack.com/embed/song/cs1-3/ssm-ls" },
+            { title: "Va Säger Du Baby (Studio Kvalitet)", src: "https://audiomack.com/embed/song/cs1-3/einar-va-sager-du-baby-studio-kvalitet" },
+            { title: "Para", src: "https://audiomack.com/embed/song/cs1-3/einar-para-oslappt" },
+            { title: "Freestyle ft. Dree Low & Madi Banja", src: "https://audiomack.com/embed/song/cs1-3/einar-dree-low-madi-banja-freestyle" },
+            { title: "Pop Smoke 2 ft. 5iftyy & Moewgli", src: "https://audiomack.com/embed/song/cs1-3/einar-5iftyy-moewgli-pop-smoke-2" },
+            { title: "Psykopater ft. Greekazo", src: "https://audiomack.com/embed/song/cs1-3/einar-x-greekazo-psykopater-official-oslappt-audio-sjuk-lat" },
+            { title: "What What ft. Dree Low", src: "https://audiomack.com/embed/song/csumi3/dree-low-ft-einar-what-what" },
+            { title: "Steppa In", src: "https://audiomack.com/embed/song/magmareaper4/steppa-in-einr" },
+            { title: "Kaos", src: "https://audiomack.com/embed/song/magmareaper4/einr-kaos" },
+            { title: "Trapstar$ ft. Sulle", src: "https://audiomack.com/embed/song/magmareaper4/trapstar-1" },
+            { title: "Kilos", src: "https://audiomack.com/embed/song/cs1-3/einar-kilos" },
+            { title: "3Style Del 2", src: "https://audiomack.com/embed/song/magmareaper4/einr-3style-del-2" },
+            { title: "Southside ft. Euro", src: "https://audiomack.com/embed/song/cs1-3/einar-x-euro-southside-oslappt" },
+            { title: "Stress ft. Owen & Thrife", src: "https://audiomack.com/embed/song/cs1-3/einar-x-owen-x-thrife-stress-oslappt-bast-kvalite" },
+            { title: "Blåser Kallt ft. Dree Low", src: "https://audiomack.com/embed/song/magmareaper4/einar-x-dree-low-blser-kallt" },
+            { title: "See You Later ft. Icekiid", src: "https://audiomack.com/embed/song/cs1-3/einar-x-icekiid-see-you-later" },
+            { title: "Meckar En Kush ft. Thrife", src: "https://audiomack.com/embed/song/cs1-3/einar-x-thrife-meckar-en-kush" },
+            { title: "Ha Ha Ha (Fuck Fame) ft. Adaam", src: "https://audiomack.com/embed/song/magmareaper4/einar-x-adaam-ha-ha-ha-fuck-fame-hela-oslappt" },
+            { title: "Mina Grabbar", src: "https://audiomack.com/embed/song/cs1-3/einar-mina-grabbar" },
+            { title: "Falla Ner ft. C1cuz & Sarettii", src: "https://audiomack.com/embed/song/cs1-3/einar-c-1cuz-x-sarettii-falla-ner" },
+            { title: "Designer ft. Thrife", src: "https://audiomack.com/embed/song/cs1-3/einar-x-thrife-desginer" },
+            { title: "Louis Vuitton ft. Ricky Rich", src: "https://audiomack.com/embed/song/cs1-3/einar-x-ricky-rich-louis-vuitton-oslappt" },
+            { title: "Mord efter mord", src: "https://audiomack.com/embed/song/cs1-3/einar-mord-efter-mord-oslappt" },
+            { title: "Vi E Kvar", src: "https://audiomack.com/embed/song/cs1-3/einar-vi-e-kvar" },
+            { title: "Go Cart ft. Yasin & Dree Low", src: "https://audiomack.com/embed/song/cs1-3/yasin-go-cart-ft-einar-x-dreelow" }
         ];
 
         const owenSongs = [
-            {title: "Diskret", src: "https://audiomack.com/embed/song/cs1-3/owen-diskret"},
-            {title: "Stress ft. Thrife", src: "https://audiomack.com/embed/song/cs1-3/einar-x-owen-x-thrife-stress-oslappt-bast-kvalite"}
+            { title: "Diskret", src: "https://audiomack.com/embed/song/cs1-3/owen-diskret" },
+            { title: "Stress ft. Thrife & Einár", src: "https://audiomack.com/embed/song/cs1-3/einar-x-owen-x-thrife-stress-oslappt-bast-kvalite" }
         ];
 
         const dreeLowSongs = [
-            {title: "What What ft. Einár", src: "https://audiomack.com/embed/song/cs1-3/dree-low-ft-einar-what-what"},
-            {title: "Blåser Kallt ft. Einár", src: "https://audiomack.com/embed/song/magmareaper4/einar-x-dree-low-blser-kallt"},
-            {title: "Freestyle ft. Einár & Madi Banja", src: "https://audiomack.com/embed/song/cs1-3/einar-dree-low-madi-banja-freestyle"}
+            { title: "What What ft. Einár", src: "https://audiomack.com/embed/song/cs1-3/dree-low-ft-einar-what-what" },
+            { title: "Blåser Kallt ft. Einár", src: "https://audiomack.com/embed/song/magmareaper4/einar-x-dree-low-blser-kallt" },
+            { title: "Freestyle ft. Einár & Madi Banja", src: "https://audiomack.com/embed/song/cs1-3/einar-dree-low-madi-banja-freestyle" },
+            { title: "Go Cart ft. Yasin & Einár", src: "https://audiomack.com/embed/song/cs1-3/yasin-go-cart-ft-einar-x-dreelow" }
         ];
 
         const thrifeSongs = [
-            {title: "Stress ft. Einár & Owen", src: "https://audiomack.com/embed/song/cs1-3/einar-x-owen-x-thrife-stress-oslappt-bast-kvalite"},
-            {title: "Designer ft. Einár", src: "https://audiomack.com/embed/song/cs1-3/einar-x-thrife-desginer"},
-            {title: "Welcome to the Party (Osläppt)", src: "https://audiomack.com/embed/song/magmareaper4/thrife-x-rami-x-2clock-welcome-to-the-party-oslappt"},
-            {title: "Meckar En Kush ft. Einár", src: "https://audiomack.com/embed/song/cs1-3/einar-x-thrife-meckar-en-kush"}
+            { title: "Stress ft. Einár & Owen", src: "https://audiomack.com/embed/song/cs1-3/einar-x-owen-x-thrife-stress-oslappt-bast-kvalite" },
+            { title: "Designer ft. Einár", src: "https://audiomack.com/embed/song/cs1-3/einar-x-thrife-desginer" },
+            { title: "Welcome to the Party (Osläppt)", src: "https://audiomack.com/embed/song/magmareaper4/thrife-x-rami-x-2clock-welcome-to-the-party-oslappt" },
+            { title: "Meckar En Kush ft. Einár", src: "https://audiomack.com/embed/song/cs1-3/einar-x-thrife-meckar-en-kush" }
+        ];
+
+        const yasinSongs = [
+            { title: "Go Cart ft. Einár & Dree Low", src: "https://audiomack.com/embed/song/cs1-3/yasin-go-cart-ft-einar-x-dreelow" }
         ];
 
         // Store the original featured artists HTML to restore it later
@@ -437,7 +449,6 @@
             }
         }
 
-        // Updated to display songs in the same tab with a search bar
         function showArtistSongs(artist) {
             let songs, artistName;
             if (artist === 'einar') {
@@ -452,6 +463,9 @@
             } else if (artist === 'thrife') {
                 songs = thrifeSongs;
                 artistName = 'Thrife';
+            } else if (artist === 'yasin') {
+                songs = yasinSongs;
+                artistName = 'Yasin';
             } else {
                 console.error('Unknown artist:', artist);
                 return;
@@ -471,186 +485,32 @@
             `;
             window.scrollTo({ top: featuredSection.offsetTop, behavior: 'smooth' });
 
-            // Add search functionality
             const searchInput = document.getElementById('songSearch');
             searchInput.addEventListener('input', function() {
                 const query = this.value.toLowerCase();
                 const albums = document.querySelectorAll('.album');
                 albums.forEach(album => {
                     const title = album.getAttribute('data-title');
-                    if (title.includes(query)) {
-                        album.style.display = 'block';
-                    } else {
-                        album.style.display = 'none';
-                    }
+                    album.style.display = title.includes(query) ? 'block' : 'none';
                 });
             });
         }
 
-        // Function to restore the home page
         function showHome() {
-            document.getElementById('featured').innerHTML = originalContent;
-            // Reattach event listeners to artist cards after restoring
-            document.querySelectorAll('.artist').forEach(artist => {
-                artist.onclick = () => showArtistSongs(artist.getAttribute('onclick').match(/'([^']+)'/)[1]);
+            const featuredSection = document.getElementById('featured');
+            featuredSection.innerHTML = originalContent;
+            const artists = document.querySelectorAll('.artist');
+            artists.forEach(artist => {
+                const artistId = artist.getAttribute('onclick').match(/'([^']+)'/)[1];
+                artist.onclick = () => showArtistSongs(artistId);
             });
-            window.scrollTo({ top: document.getElementById('featured').offsetTop, behavior: 'smooth' });
+            window.scrollTo({ top: featuredSection.offsetTop, behavior: 'smooth' });
         }
 
-        // Attach home link functionality to the "Home" nav item
         document.getElementById('homeLink').addEventListener('click', (e) => {
             e.preventDefault();
             showHome();
         });
-
-        function openUnreleasedTab(artist) {
-            let songs, artistName;
-            if (artist === 'einar') {
-                songs = einarSongs;
-                artistName = 'Einár';
-            } else if (artist === 'owen') {
-                songs = owenSongs;
-                artistName = 'Owen';
-            } else if (artist === 'dree-low') {
-                songs = dreeLowSongs;
-                artistName = 'Dree Low';
-            } else if (artist === 'thrife') {
-                songs = thrifeSongs;
-                artistName = 'Thrife';
-            } else {
-                console.error('Unknown artist:', artist);
-                return;
-            }
-
-            const songCount = songs.length;
-
-            const newTab = window.open('', '_blank');
-            if (!newTab) {
-                alert('Please allow pop-ups to view the unreleased tracks.');
-                return;
-            }
-            newTab.document.title = `UnreleasedSweden - ${artistName}`;
-            newTab.document.write(`
-                <!DOCTYPE html>
-                <html lang="en">
-                <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <title>UnreleasedSweden - ${artistName}</title>
-                    <style>
-                        body {
-                            font-family: 'Poppins', sans-serif;
-                            background-color: #121212;
-                            color: white;
-                            margin: 0;
-                            padding: 0;
-                            -webkit-font-smoothing: antialiased;
-                        }
-                        h1, h2, p {
-                            text-align: center;
-                            margin: 20px 0;
-                        }
-                        .album-list {
-                            display: grid;
-                            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-                            gap: 30px;
-                            padding: 20px;
-                            margin-top: 30px;
-                            max-width: 1200px;
-                            margin-left: auto;
-                            margin-right: auto;
-                        }
-                        .album {
-                            background-color: #1a1a1a;
-                            padding: 15px;
-                            border-radius: 10px;
-                            text-align: center;
-                        }
-                        .album iframe {
-                            width: 100%;
-                            height: 220px;
-                            border: 0;
-                            border-radius: 8px;
-                        }
-                        header {
-                            background-color: #1a1a1a;
-                            padding: 20px;
-                            display: flex;
-                            justify-content: space-between;
-                            align-items: center;
-                            position: sticky;
-                            top: 0;
-                            z-index: 1000;
-                            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-                        }
-                        header .logo h1 {
-                            font-size: 2rem;
-                            color: #1DB954;
-                        }
-                        header nav ul {
-                            list-style: none;
-                            display: flex;
-                            margin: 0;
-                            padding: 0;
-                        }
-                        header nav ul li {
-                            margin-left: 25px;
-                        }
-                        header nav ul li a {
-                            font-size: 1.1rem;
-                            color: #B3B3B3;
-                            font-weight: 400;
-                            padding: 10px 15px;
-                            transition: color 0.3s ease;
-                        }
-                        header nav ul li a:hover {
-                            color: #1DB954;
-                        }
-                        footer {
-                            background-color: #1a1a1a;
-                            padding: 25px;
-                            text-align: center;
-                            margin-top: 60px;
-                            border-top: 1px solid #2a2a2a;
-                        }
-                        footer p {
-                            color: #B3B3B3;
-                            font-size: 1rem;
-                        }
-                        .counter {
-                            color: #1DB954;
-                            font-size: 1.2rem;
-                            margin: 15px 0;
-                            font-weight: 600;
-                        }
-                    </style>
-                </head>
-                <body>
-                    <header>
-                        <div class="logo">
-                            <h1>UnreleasedSweden</h1>
-                        </div>
-                        <nav>
-                            <ul>
-                                <li><a href="#" onclick="window.close()">Home</a></li>
-                                <li><a href="#" onclick="alert('Please use the main page to request songs.')">Song Request</a></li>
-                                <li><a href="#">Library</a></li>
-                            </ul>
-                        </nav>
-                    </header>
-                    <h1>Unreleased Tracks by ${artistName}</h1>
-                    <p class="counter">Total Tracks: ${songCount}</p>
-                    <div class="album-list">
-                        ${generateAlbumList(songs)}
-                    </div>
-                    <footer>
-                        <p>© 2025 UnreleasedSweden. All rights reserved.</p>
-                    </footer>
-                </body>
-                </html>
-            `);
-            newTab.document.close();
-        }
 
         function openSongRequest() {
             document.getElementById('songRequestModal').style.display = 'flex';
@@ -670,7 +530,7 @@
             const coverDescription = this.querySelector('textarea[placeholder="Album Cover Description (Optional)"]').value || 'Not provided';
             const albumCoverFile = this.querySelector('#albumCover').files[0];
 
-            const webhookUrl = 'YOUR_WEBHOOK_URL_HERE';
+            const webhookUrl = 'YOUR_WEBHOOK_URL_HERE'; // Replace with your actual webhook URL
 
             const payload = {
                 content: "New Song Request",
@@ -735,9 +595,11 @@
             }
         });
 
-        function scrollToSection(sectionId) {
-            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
-        }
+        // Initial setup to ensure cards are clickable on page load
+        document.querySelectorAll('.artist').forEach(artist => {
+            const artistId = artist.getAttribute('onclick').match(/'([^']+)'/)[1];
+            artist.onclick = () => showArtistSongs(artistId);
+        });
     </script>
 </body>
 </html>
