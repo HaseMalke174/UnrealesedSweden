@@ -122,6 +122,7 @@
 
         .artist img {
             width: 100%;
+            height: 220px; /* Fixed height for uniform scaling */
             border-radius: 8px;
             object-fit: cover;
             margin-bottom: 10px;
@@ -290,6 +291,10 @@
 
             .artist p {
                 font-size: 0.85rem;
+            }
+
+            .artist img {
+                height: 180px; /* Adjust for smaller screens */
             }
         }
     </style>
@@ -485,15 +490,17 @@
             `;
             window.scrollTo({ top: featuredSection.offsetTop, behavior: 'smooth' });
 
+            // Remove existing listeners to prevent stacking
             const searchInput = document.getElementById('songSearch');
-            searchInput.addEventListener('input', function() {
+            searchInput.oninput = null; // Clear previous listener
+            searchInput.oninput = function() {
                 const query = this.value.toLowerCase();
                 const albums = document.querySelectorAll('.album');
                 albums.forEach(album => {
                     const title = album.getAttribute('data-title');
                     album.style.display = title.includes(query) ? 'block' : 'none';
                 });
-            });
+            };
         }
 
         function showHome() {
@@ -530,7 +537,8 @@
             const coverDescription = this.querySelector('textarea[placeholder="Album Cover Description (Optional)"]').value || 'Not provided';
             const albumCoverFile = this.querySelector('#albumCover').files[0];
 
-            const webhookUrl = 'YOUR_WEBHOOK_URL_HERE'; // Replace with your actual webhook URL
+            // Placeholder webhook URL - replace or comment out if not used
+            const webhookUrl = 'YOUR_WEBHOOK_URL_HERE';
 
             const payload = {
                 content: "New Song Request",
