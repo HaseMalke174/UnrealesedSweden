@@ -122,7 +122,7 @@
 
         .artist img {
             width: 100%;
-            height: 220px; /* Fixed height for uniform scaling */
+            height: 220px;
             border-radius: 8px;
             object-fit: cover;
             margin-bottom: 10px;
@@ -164,8 +164,8 @@
 
         .album-list {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Updated for wider embeds */
+            gap: 40px; /* More spacing */
             padding: 20px;
             margin-top: 30px;
             max-width: 1200px;
@@ -182,9 +182,9 @@
 
         .album iframe {
             width: 100%;
-            height: 220px;
+            height: 300px; /* Updated for bigger embeds */
             border: 0;
-            border-radius: 8px;
+            border-radius: 12px; /* Slightly larger radius */
         }
 
         .counter {
@@ -294,7 +294,11 @@
             }
 
             .artist img {
-                height: 180px; /* Adjust for smaller screens */
+                height: 180px;
+            }
+
+            .album-list {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Adjusted for smaller screens */
             }
         }
     </style>
@@ -412,7 +416,7 @@
 
         const owenSongs = [
             { title: "Diskret", src: "https://audiomack.com/embed/song/cs1-3/owen-diskret" },
-            { title: "Stress ft. Thrife & Einár", src: "https://audiomack.com/embed/song/cs1-3/einar-x-owen-x-thrife-stress-oslappt-bast-kvalite" }
+            { title: "Stress ft. Thrife & Einár", src: "https://audiomack.com/embed/song/cs1-3/einar-x-owen-thrife-stress-oslappt-bast-kvalite" }
         ];
 
         const dreeLowSongs = [
@@ -433,14 +437,13 @@
             { title: "Go Cart ft. Einár & Dree Low", src: "https://audiomack.com/embed/song/cs1-3/yasin-go-cart-ft-einar-x-dreelow" }
         ];
 
-        // Store the original featured artists HTML to restore it later
         const originalContent = document.getElementById('featured').innerHTML;
 
         function generateAlbumList(songs) {
             return songs.map(song => `
                 <div class="album" data-title="${song.title.toLowerCase()}">
                     <h2>${song.title}</h2>
-                    <iframe loading="lazy" width="100%" height="220" src="${song.src}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    <iframe loading="lazy" width="100%" height="300" src="${song.src}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
                 </div>
             `).join('');
         }
@@ -490,9 +493,8 @@
             `;
             window.scrollTo({ top: featuredSection.offsetTop, behavior: 'smooth' });
 
-            // Remove existing listeners to prevent stacking
             const searchInput = document.getElementById('songSearch');
-            searchInput.oninput = null; // Clear previous listener
+            searchInput.oninput = null;
             searchInput.oninput = function() {
                 const query = this.value.toLowerCase();
                 const albums = document.querySelectorAll('.album');
@@ -537,7 +539,6 @@
             const coverDescription = this.querySelector('textarea[placeholder="Album Cover Description (Optional)"]').value || 'Not provided';
             const albumCoverFile = this.querySelector('#albumCover').files[0];
 
-            // Placeholder webhook URL - replace or comment out if not used
             const webhookUrl = 'YOUR_WEBHOOK_URL_HERE';
 
             const payload = {
@@ -603,7 +604,6 @@
             }
         });
 
-        // Initial setup to ensure cards are clickable on page load
         document.querySelectorAll('.artist').forEach(artist => {
             const artistId = artist.getAttribute('onclick').match(/'([^']+)'/)[1];
             artist.onclick = () => showArtistSongs(artistId);
